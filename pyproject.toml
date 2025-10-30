@@ -1,0 +1,40 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "hektor"
+version = "1.0.15"
+description = "Tiny FAISS-based vector index with optional hybrid (BM25) search."
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [{ name = "Elias H", email = "you@example.com" }]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+dependencies = [
+  "numpy>=1.22",
+  "faiss-cpu>=1.7.4",
+  "rank-bm25>=0.2.2",
+  "sentence-transformers>=2.2.0",
+]
+
+[project.optional-dependencies]
+gpu = ["faiss-gpu>=1.7.4"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/hektor"]
+
+[tool.semantic_release]
+version_toml = ["pyproject.toml:project.version"]
+version_variables = ["src/hektor/__init__.py:__version__"]
+branch = "main"
+build_command = "python -m build"
+upload_to_pypi = false
+upload_to_release = true
+changelog_file = "CHANGELOG.md"
